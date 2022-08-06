@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"os"
+	"path/filepath"
 
 	"github.com/fsnotify/fsnotify"
 )
@@ -44,5 +47,16 @@ func monitorDir(watcher *fsnotify.Watcher) {
 }
 
 func moveFile(fn string) {
+	ext := filepath.Ext(fn)
+	fmt.Println("ext: ", ext)
 
+	switch ext {
+	case ".jpeg":
+		fmt.Println("moving file")
+		err := os.Rename(fn, "temp.jpeg")
+
+		if err != nil {
+			fmt.Println("error moving file: ", err)
+		}
+	}
 }
